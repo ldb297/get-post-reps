@@ -1,4 +1,9 @@
 <p>Here's my dinos!</p>
+<form method="GET" action="/dinosaurs">
+    <label for="nameFilter">Filter by Name</label>
+    <input id="nameFilter" type="text" name="nameFilter">
+    <input type="submit">
+  </form>
 <ul>
     <% for (let dino of dinos) { %>
         <p><%= dino.name %></p>

@@ -19,7 +19,23 @@ app.get('/', (req,res)=>{
 
 //post route, doesn't have view
 app.post('/dinosaurs', (req,res)=>{
-    console.log(req.body)
+    //pulled in file
+    let dinos = fs.readFileSync('./dinosaurs.json')
+    //made readable
+    dinos = JSON.parse(dinos)
+    //created variable
+    const dino = dinos[req.params.index]
+    //created skeleton for form inputs to store
+    const newDino = {
+        name: req.body.name,
+        type: req.body.type
+    }
+    //pushed into preexisting array
+    dinos.push(newDino)
+    //rewrites original file with new data
+    fs.writeFileSync('./dinosaurs.json', JSON.stringify(dinos))
+    //get requests us back to home page
+    res.redirect('/dinosaurs')
 })
 
 //index view
@@ -27,6 +43,18 @@ app.get('/dinosaurs', (req,res)=>{
     let dinos = fs.readFileSync('./dinosaurs.json')
     //translates data
     dinos = JSON.parse(dinos)
+    console.log(req.query.nameFilter)
+    let nameToFilterBy = req.query.nameFilter
+    
+    if(nameToFilterBy){
+        const newFilteredArray = dinos.filter((dinosaurObj)=>{
+            if (dinosaurObj.name.toLowerCase() === nameToFilterBy.toLowerCase()) {
+                return true
+            }
+        })
+        dinos = newFilteredArray
+    }
+    
     //renders page in views folder
     res.render('dinosaurs/index', {dinos: dinos})
 })
