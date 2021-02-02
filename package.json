@@ -1,0 +1,27 @@
+{
+  "name": "get-post-reps",
+  "version": "1.0.0",
+  "description": "Practice code along for GET and POST",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ldb297/get-post-reps.git"
+  },
+  "keywords": [
+    "get",
+    "post"
+  ],
+  "author": "Leo Brooks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ldb297/get-post-reps/issues"
+  },
+  "homepage": "https://github.com/ldb297/get-post-reps#readme",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1"
+  }
+}
