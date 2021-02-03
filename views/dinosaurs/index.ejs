@@ -10,7 +10,8 @@
         <p><%= dino.name %></p>
         <p><%= dino.type %></p>
         <form method="POST" action="/dinosaurs/<%= idx %>?_method=DELETE">
-            <input type="submit" value="delete">
+            <input type="submit" value="Delete">
         </form>
+        <a href="/dinosaurs/edit/<%= idx %>">Update</a>
      <% } %>
 </ul> 

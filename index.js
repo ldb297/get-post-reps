@@ -66,6 +66,14 @@ app.get('/dinosaurs/new', (req,res)=>{
     res.render('dinosaurs/new');
 })
 
+app.get('/dinosaurs/edit/:idx', (req,res)=>{
+    const dinosaurs = fs.readFileSync('./dinosaurs.json');
+    const dinosaursArray = JSON.parse(dinosaurs);
+    let idx = Number(req.params.idx);
+    const ourDino = dinosaursArray[idx]
+    res.render('dinosaurs/edit', {dino: ourDino, idx})
+})
+
 //show view
 app.get('/dinosaurs/:index', (req,res)=>{
     let dinos = fs.readFileSync('./dinosaurs.json');
@@ -82,10 +90,30 @@ app.delete('/dinosaurs/:idx', (req,res)=>{
     let idx = Number(req.params.idx);
 
     dinosaursArray.splice(idx, 1);
-    fs.writeFileSync('./dinosaurs.json', JSON.stringify(dinosaursArray))
+    fs.writeFileSync('./dinosaurs.json', JSON.stringify(dinosaursArray));
     
-    res.redirect('/dinosaurs')
+    res.redirect('/dinosaurs');
 })
+
+app.put('/dinosaurs/:idx', (req,res)=>{
+    //updating a dinosaur
+    const dinosaurs = fs.readFileSync('./dinosaurs.json')
+    const dinosaursArray = JSON.parse(dinosaurs);
+
+    //setting up index
+    let idx = Numer(req.params.idx);
+    const ourDino = dinosaursArray[idx];
+
+    //update the dino
+    ourDino.name = req.body.name;
+    ourDino.type = req.body.type;
+
+    //rewrite file with updated info
+    fs.writeFileSync('./dinosaurs.json', JSON.stringify(ourDino));
+
+    //redirect back to dinosaurs page
+    res.redirect('/dinosaurs');
+});
 
 //local server hosting
 const PORT = process.env.PORT || 8000
